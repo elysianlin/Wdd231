@@ -7,6 +7,8 @@ const disclaimerLink = document.querySelector(".disclaimer > a");
 disclaimerLink.href = parkData.url;
 disclaimerLink.innerHTML = parkData.fullName
 
+document.querySelector("head > title").textContent = parkData.fullName;
+
 document.querySelector(".park-banner-title").innerHTML = parkData.fullName;
 
 const heroImage = document.querySelector(".park-banner-image");

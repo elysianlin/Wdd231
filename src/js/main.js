@@ -1,28 +1,23 @@
-import { getParkData } from "./parkService.mjs";
+import { getParkData, parkInfoLinks } from "./parkService.mjs";
+import setHeaderFooter from "./setHeaderFooter.mjs";
+import { mediaCardTemplate } from "./templates.mjs";
 
 const parkData = getParkData();
 
-const disclaimerLink = document.querySelector(".disclaimer > a");
-
-disclaimerLink.href = parkData.url;
-disclaimerLink.innerHTML = parkData.fullName
-
-document.querySelector("head > title").textContent = parkData.fullName;
-
-document.querySelector(".park-banner-title").innerHTML = parkData.fullName;
-
-const heroImage = document.querySelector(".park-banner-image");
-heroImage.src = parkData.images[0].url;
-heroImage.alt = parkData.images[0].altText;
-
-function parkInfoTemplate(info) {
-  return `
-    <a href="/" class="prak-banner-title">${info.name}</a>
-    <p class="park-banner-subtitle">
-      <span>${info.designation}</span>
-      <span>${info.states}</span>
-    </p>`;
+function setParkIntro(data) {
+  const introEl = document.querySelector(".intro");
+  introEl.innerHTML = `
+    <h1>${data.fullName}</h1>
+    <p>${data.description}</p>
+  `;
 }
 
-const bannerContent = document.querySelector(".park-banner-conent");
-bannerContent.innerHTML = parkInfoTemplate(parkData);
+function setParkInfoLinks(links) {
+  const infoEl = document.querySelector(".info");
+  const html = links.map(mediaCardTemplate).join("");
+  infoEl.insertAdjacentHTML("afterbegin", html);
+}
+
+setHeaderFooter(parkData);
+setParkIntro(parkData);
+setParkInfoLinks(parkInfoLinks);

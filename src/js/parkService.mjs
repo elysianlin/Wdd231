@@ -179,6 +179,26 @@ const park = {
   designation: "National Park"
 };
 
+export const parkInfoLinks = [
+  {
+    name:"Current conditions &#x203A;",
+    link:"conditions.html",
+    image:getParkData.image[2].url,
+    description:"See what conditions to expect in the park before leaving on your trip!"
+  },
+  {
+    name:"Fees and Passes &#x203A;",
+    link: "fees.html",
+    image: getParkData.images[3].url,
+    description: "Learn about the fees and passes that are available."
+  },
+  {
+    name:"Visitor Centers &#x203A;",
+    link:"Visitor_Center.html",
+    image: getParkData.image[9].url,
+    description: "Learn about the visitor cneters in the park."
+  }
+]
 export function getParkData() {
   return park;
 }

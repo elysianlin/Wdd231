@@ -1,5 +1,5 @@
 function getMailingAddress(addresses) {
-    return address.find((address) => address.type === "Mailing");
+    return addresses.find((address) => address.type === "Mailing");
 }
 
 function getVoicePhone(phoneNumbers) {
@@ -7,14 +7,23 @@ function getVoicePhone(phoneNumbers) {
     return vioice ? vioice.phoneNumber : "";
 }
 
+export function parkInfoTemplate(info) {
+  return `
+    <a href="/" class="park-banner-title">${info.name}</a>
+    <p class="park-banner-subtitle">
+      <span>${info.designation}</span>
+      <span>${info.states}</span>
+    </p>`;
+}
+
 export function mediaCardTemplate(info) {
   return `
     <div class="media-card">
       <a href="${info.link}">
-        <img src="${info.image}" alt="${info.name}">
-        <h3>${info.name}</h3>
+        <img class="meida-card-img" src="${info.image}" alt="${info.name}">
+        <h3 class="meida-card-title">${info.name}</h3>
       </a>
-      <p>${info.description}</p>
+      <p class="media-card-description">${info.description}</p>
     </div>`;
 }
 
@@ -23,7 +32,7 @@ export function footerTemplate(info) {
   const voice = getVoicePhone(info.contacts.phoneNumbers);
 
   return `
-    <section class="contact">
+    <section class="park-footer">
       <h3>Contact Info</h3>
       <h4>Mailing Address:</h4>
       <div>
@@ -33,13 +42,4 @@ export function footerTemplate(info) {
       <h4>Phone:</h4>
       <p>${voice}</p>
     </section>`;
-}
-
-export function parkInfoTemplate(info) {
-  return `
-    <a href="/" class="hero-banner__title">${info.name}</a>
-    <p class="hero-banner__subtitle">
-      <span>${info.designation}</span>
-      <span>${info.states}</span>
-    </p>`;
 }

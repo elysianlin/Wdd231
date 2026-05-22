@@ -1,7 +1,8 @@
-@import "partials/variables.css";
-@import "partials/global.css";
-@import "partials/header.css";
-@import "partials/footer.css";
-@import "partials/blocks.css";
-@import "partials/utilities.css";
-@import "home.css";
+@import url("partials/variables.css");
+@import url("partials/global.css");
+@import url("partials/header.css");
+@import url("partials/footer.css");
+@import url("partials/blocks.css");
+@import url("partials/utilities.css");
+@import url("home.css");
+@import url("conditions.css");

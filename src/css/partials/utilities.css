@@ -35,3 +35,19 @@ svg {
   text-decoration: underline;
   color: var(--bs-link-color);
 }
+
+.alert-information {
+  color: var(--alert-information);
+}
+
+.alert-dander {
+  color: var(--alert-danger);
+}
+
+.alert-closure {
+  color:var(--alert-closure);
+}
+
+.alert-caution {
+  color:var(--alert-caution);
+}

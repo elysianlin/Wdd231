@@ -1,4 +1,4 @@
-import { getParkData, getInfoLinks } from "./parkService.mjs";
+import { getParkData, getInfoLinks, getParkAlerts } from "./parkService.mjs";
 import setHeaderFooter from "./setHeaderFooter.mjs";
 import { mediaCardTemplate } from "./templates.mjs";
 
@@ -14,12 +14,15 @@ function setParkInfoLinks(data) {
   infoEl.insertAdjacentHTML("afterbegin", html.join(""));
 }
 
+
 async function init() {
   const parkData = await getParkData();
   const links = getInfoLinks(parkData.images);
+  const alerts = await getParkAlerts(parkData.parkCode);
   setHeaderFooter(parkData);
   setParkIntro(parkData);
   setParkInfoLinks(links);
+  setAlerts(alerts);
 }
 
 init();

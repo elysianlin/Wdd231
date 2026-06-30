@@ -178,13 +178,13 @@ const park = {
   name: "Yellowstone",
   designation: "National Park"
 };
-
-export const parkInfoLinks = [
+const parkInfoLinks = [
   {
-    name: "Current conditions &#x203A;",
+    name: "Current Conditions &#x203A;",
     link: "conditions.html",
     image: park.images[2].url,
-    description: "See what conditions to expect in the park before leaving on your trip!"
+    description:
+      "See what conditions to expect in the park before leaving on your trip!"
   },
   {
     name: "Fees and Passes &#x203A;",
@@ -194,15 +194,15 @@ export const parkInfoLinks = [
   },
   {
     name: "Visitor Centers &#x203A;",
-    link: "Visitor_Center.html",
+    link: "visitor_centers.html",
     image: park.images[9].url,
     description: "Learn about the visitor centers in the park."
   }
 ];
 
-
 const baseUrl = "https://developer.nps.gov/api/v1/";
 const apiKey = import.meta.env.VITE_NPS_API_KEY;
+console.log("API key loaded:", apiKey);
 
 async function getJson(url) {
   const options = {
@@ -234,12 +234,16 @@ export async function getParkData() {
 }
 
 export async function getParkAlerts(code) {
-  const parkdata = await getJson(`alerts?parkCode=${code}`);
-  return parkdata.data;
-}
-
-export async function getVisitorCenterData(parkCode) {
-  const parkData = await getJson(`visitorcenters?parkCode=${parkCode}`);
+  const parkData = await getJson(`alerts?parkCode=${code}`);
   return parkData.data;
 }
 
+export async function getParkVisitorCenters(code) {
+  const parkData = await getJson(`visitorcenters?parkCode=${code}`);
+  return parkData.data;
+}
+
+export async function getParkVisitorCenterDetails(id) {
+  const parkData = await getJson(`visitorcenters?id=${id}`);
+  return parkData.data[0];
+}

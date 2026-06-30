@@ -29,19 +29,14 @@ function subMenuHandler(ev) {
 }
 
 export default function enableNavigation() {
-  const toggle = document.querySelector("#global-nav-toggle");
-  const nav = document.querySelector(".global-nav");
-
-  toggle.addEventListener("click", () => {
-    const expanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!expanded));
-    nav.classList.toggle("show");
-  });
-
-  document.querySelectorAll(".global-nav__split-button__toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const submenu = btn.closest("li").querySelector(".global-nav__submenu");
-      if (submenu) submenu.classList.toggle("show");
-    });
+  const menuButton = document.querySelector("#global-nav-toggle");
+  const subMenuToggles = document.querySelectorAll(
+    ".global-nav__split-button__toggle"
+  );
+  // when the main menu button is clicked:
+  menuButton.addEventListener("click", mainMenuHandler);
+  subMenuToggles.forEach((toggle) => {
+    //for each submenu toggle
+    toggle.addEventListener("click", subMenuHandler);
   });
 }

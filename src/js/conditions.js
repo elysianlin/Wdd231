@@ -3,37 +3,26 @@ import "../css/conditions.css";
 import {
   getParkData,
   getParkAlerts,
-  getVisitorCenterData     
+  getParkVisitorCenters
 } from "./parkService.mjs";
 import {
+  activityTemplate,
   alertTemplate,
-  visitorCenterTemplate,
-  activityTemplate
+  visitorCenterTemplate
 } from "./templates.mjs";
 import setHeaderFooter from "./setHeaderFooter.mjs";
-
-const alertPriority = {
-    "Park Closure": 1,
-    "Caution": 2,
-    "Information": 3,
-}
 
 function setAlerts(alerts) {
   const alertsContainer = document.querySelector(".alerts > ul");
   alertsContainer.innerHTML = "";
-  const sorted = [...alerts].sort((a, b) => {
-    const pa = alertPriority[a.category.toLowerCase()] ?? 99;
-    const pb = alertPriority[b.category.toLowerCase()] ?? 99;
-    return pa - pb;
-  });
-  console.log(sorted.map(a => ({ category: a.category, title: a.title })));
-  const html = sorted.map(alertTemplate);
-  alertsContainer.insertAdjacentHTML("beforeend", html.join(""));
+  const html = alerts.map(alertTemplate);
+  alertsContainer.insertAdjacentHTML("afterbegin", html.join(""));
 }
 
 function setVisitorCenters(centers) {
-    const centercontainer = document.querySelector(".visitor-services details ul");
-    centercontainer.innerHTML = centers.map(visitorCenterTemplate).join("");
+  const centersContainer = document.querySelector(".visitor ul");
+  const html = centers.map(visitorCenterTemplate);
+  centersContainer.insertAdjacentHTML("afterbegin", html.join(""));
 }
 
 function setActivities(activities) {
@@ -42,17 +31,13 @@ function setActivities(activities) {
   activitiesContainer.insertAdjacentHTML("afterbegin", html);
 }
 
-
-
 async function init() {
   const parkData = await getParkData();
-  const [alerts, centers] = await Promise.all([
-    getParkAlerts(parkData.parkCode),
-    getVisitorCenterData(parkData.parkCode),
-  ]);
+  const alerts = await getParkAlerts(parkData.parkCode);
+  const visitorCenters = await getParkVisitorCenters(parkData.parkCode);
   setHeaderFooter(parkData);
   setAlerts(alerts);
-  setVisitorCenters(centers);
+  setVisitorCenters(visitorCenters);
   setActivities(parkData.activities);
 }
 

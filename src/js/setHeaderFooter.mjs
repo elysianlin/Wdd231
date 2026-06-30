@@ -1,22 +1,27 @@
-import { footerTemplate, parkInfoTemplate } from "./templates.mjs";
-import enableNavigation from "./navigation.js";
+import { parkInfoTemplate, footerTemplate } from "./templates.mjs";
+import enableNavigation from "./navigation.mjs";
+
 function setHeaderInfo(data) {
+  // insert data into disclaimer section
   const disclaimer = document.querySelector(".disclaimer > a");
   disclaimer.href = data.url;
   disclaimer.innerHTML = data.fullName;
-  
+  // update the title of the site. Notice that we can select things in the head just like in the body with querySelector
   document.querySelector("head > title").textContent = data.fullName;
+  // set the banner image
   document.querySelector(".park-banner-image").src = data.images[0].url;
-  document.querySelector(".park-banner-content").innerHTML = parkInfoTemplate(data);
+  // use the template function above to set the rest of the park specific info in the header
+  document.querySelector(".park-banner-content").innerHTML =
+    parkInfoTemplate(data);
 }
 
 function setFooter(data) {
   const footerEl = document.querySelector("#park-footer");
-  footerEl.innerHTML = footerTemplate(data);
+  footerEl.insertAdjacentHTML("afterbegin", footerTemplate(data));
 }
 
-export default function setHeaderFooter(data) {
-  setHeaderInfo(data);
-  setFooter(data);
+export default function setHeaderFooter(parkData) {
+  setHeaderInfo(parkData);
+  setFooter(parkData);
   enableNavigation();
 }

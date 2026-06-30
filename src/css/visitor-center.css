@@ -1,0 +1,137 @@
+/* visitor center styles */
+
+.vc-name {
+  border-bottom: 1px solid var(--bs-gray-400);
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+.vc-name svg {
+  background: transparent;
+  fill:black;
+  width: 1em;
+  height: 1em;
+}
+.vc-info figure {
+  margin: 1em 3em;
+}
+.vc-info figcaption {
+  font-size: 0.8em;
+}
+.vc-info figcaption > span {
+  display: block;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.vc-details-list svg,
+.vc-gallery svg {
+  background: transparent;
+  fill:black;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 1rem;
+}
+.vc-details-list summary {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+}
+
+#vcAmenities ul {
+  list-style: none;
+}
+#vcAmenities li {
+  margin-bottom: 1em;
+}
+
+.vc-gallery > h2 {
+  text-transform: uppercase;
+  font-size: 1.25rem;
+}
+.vc-gallery ul {
+  list-style: none;
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+/* This is an example of how to clip an image into a square shape */
+.vc-gallery img {
+  width: 265px; /* set the width to the desired size */
+  height: 265px; /* set the height to the same value as the width */
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Optional re-styling of the open/closed markers for the details elements */
+.vc-details-list {
+  border: 1px solid var(--bs-gray-400);
+  border-radius: 4px;
+  margin-bottom: 1.5em;
+  overflow: hidden;
+}
+
+.vc-details-list details {
+  border-bottom: 1px solid var(--bs-gray-400);
+}
+
+.vc-details-list details:last-child {
+  border-bottom: none;
+}
+
+.vc-details-list summary {
+  padding: 1em 1.5em;
+}
+
+.vc-details-list details[open] > summary {
+  border-bottom: 1px solid var(--bs-gray-400);
+}
+
+.vc-details-list details > section,
+.vc-details-list details > p,
+.vc-details-list details > ul {
+  padding: 1em 1.5em 1.5em;
+}
+
+.vc-addresses__physical,
+.vc-addresses__mailing {
+  margin-bottom: 1em;
+}
+
+.vc-addresses__physical h3,
+.vc-addresses__mailing h3,
+.vc-contact__email h3,
+.vc-contact__phone h3 {
+  margin-bottom: 0.5em;
+  font-size: 1rem;
+}
+
+.vc-contact__email,
+.vc-contact__phone {
+  margin-bottom: 1em;
+}
+/* First we have to hide the default markers */
+.vc-details-list summary::marker,
+.vc-details-list summary::-webkit-details-marker {
+  display: none;
+}
+/* then we can use ::after to insert in a new image and position it to the right place */
+.vc-details-list summary::after {
+  content: "";
+  position: absolute;
+  right: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-image: url("../images/arrow.svg");
+  background-size: 1.25rem 1.25rem;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+/* when you open a details element the browser automatically adds an "open" attribute to the detail.
+  We can use this with some fancy selector work to change the background position of the arrow image to show the open state. */
+.vc-details-list details[open] > summary::after {
+  transform: rotate(180deg);
+}
